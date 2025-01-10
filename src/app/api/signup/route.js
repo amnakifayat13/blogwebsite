@@ -1,7 +1,7 @@
 import User from "../../../../models/user";
 import bcrypt from "bcrypt";
 import { connect } from "../../../../lib/db";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
@@ -12,13 +12,13 @@ export async function POST(req) {
     const isExisting = await User.findOne({email})
 
     if(isExisting){
-      return NextResponse.json({EorrorMessage: "User already exists"})
+      return NextResponse.json({ErrorMessage: "User already exists"})
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
 
 
-    const newUser = await User.create({name, email, password})
+    const newUser = await User.create({name, email, password:hashedPassword})
      
   
     return NextResponse.json(newUser, { status: 201 });

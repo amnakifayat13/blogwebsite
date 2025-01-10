@@ -23,7 +23,7 @@ export const authOptions = {
 
                     const passwordMatch = await bcrypt.compare(password, user.password);
 
-                    if(!password){
+                    if(!passwordMatch){
                         throw  new Error("Passwords do not match.")
                     }else{
                         const {password, ...currentUser} = user._doc;
@@ -59,7 +59,7 @@ export const authOptions = {
 
         async session({session, token}){
             if(token){
-                session .user._id = token._id;
+                session.user._id = token._id;
                 session.user.accessToken =token.accessToken;
 
             }

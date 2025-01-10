@@ -13,7 +13,7 @@ const initialState = {
   description: "",
   excerpt: "",
   quote: "",
-  category: "Sea Animals",
+  category: "SeaAnimals",
   photo: "",
 };
 

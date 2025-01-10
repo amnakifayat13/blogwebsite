@@ -36,3 +36,20 @@ export async function POST(req) {
 
     }
 }
+
+export async function GET(req){
+    await connect();
+
+    try{
+        const blogs = await Blog.find({}).populate({
+            path: "authorId",
+            select: "-password"
+        }).sort({createdAt: -1})
+
+
+        return NextResponse.json(blogs);
+
+    }catch(error){
+        return NextResponse.json({message: "GET Error"}, {status:500})
+    }
+}
